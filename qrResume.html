@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Resume - Digital Study Solutions</title>
+    <style>
+        /* CYBERPUNK THEME */
+        :root {
+            --electric-blue: #00F5FF;
+            --neon-green: #00FF7F;
+            --dark-slate: #1A1A2E;
+            --vibrant-purple: #9D00FF;
+            --hot-pink: #FF00AA;
+            --cyber-yellow: #FFEE00;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', monospace;
+        }
+        
+        body {
+            background-color: var(--dark-slate);
+            color: white;
+            overflow-x: hidden;
+        }
+        
+        
+        /* GLITCH EFFECT */
+        .glitch {
+            position: relative;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--electric-blue);
+            text-shadow: 0 0 10px var(--electric-blue);
+            animation: glitch 2s infinite linear alternate-reverse;
+        }
+        
+        @media (min-width: 768px) {
+            .glitch {
+                font-size: 5rem;
+            }
+        }
+        
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 var(--hot-pink);
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim-1 2s infinite linear alternate-reverse;
+        }
+        
+        .glitch::after {
+            left: -2px;
+            text-shadow: -2px 0 var(--neon-green);
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim-2 2s infinite linear alternate-reverse;
+        }
+        
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-3px, 3px); }
+            40% { transform: translate(-3px, -3px); }
+            60% { transform: translate(3px, 3px); }
+            80% { transform: translate(3px, -3px); }
+            100% { transform: translate(0); }
+        }
+        
+        @keyframes glitch-anim-1 {
+            0% { clip: rect(61px, 9999px, 52px, 0); }
+            20% { clip: rect(33px, 9999px, 144px, 0); }
+            40% { clip: rect(121px, 9999px, 115px, 0); }
+            60% { clip: rect(144px, 9999px, 162px, 0); }
+            80% { clip: rect(62px, 9999px, 180px, 0); }
+            100% { clip: rect(143px, 9999px, 134px, 0); }
+        }
+        
+        @keyframes glitch-anim-2 {
+            0% { clip: rect(162px, 9999px, 166px, 0); }
+            20% { clip: rect(198px, 9999px, 173px, 0); }
+            40% { clip: rect(42px, 9999px, 105px, 0); }
+            60% { clip: rect(48px, 9999px, 149px, 0); }
+            80% { clip: rect(31px, 9999px, 149px, 0); }
+            100% { clip: rect(138px, 9999px, 130px, 0); }
+        }
+        
+        /* HERO SECTION */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at center, transparent 0%, var(--dark-slate) 70%),
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><rect x="0" y="0" width="100" height="100" fill="none" stroke="%2300F5FF" stroke-width="0.5" stroke-dasharray="2 2"/></svg>');
+            opacity: 0.3;
+            z-index: -1;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            margin: 20px 0;
+            color: var(--neon-green);
+            text-shadow: 0 0 5px var(--neon-green);
+        }
+        
+        @media (min-width: 768px) {
+            .subtitle {
+                font-size: 1.5rem;
+            }
+        }
+        
+        .qr-hologram {
+            width: 150px;
+            height: 150px;
+            margin: 30px auto;
+            background: 
+                linear-gradient(45deg, 
+                    var(--electric-blue) 25%, 
+                    transparent 25%, 
+                    transparent 75%, 
+                    var(--vibrant-purple) 75%),
+                linear-gradient(45deg, 
+                    var(--electric-blue) 25%, 
+                    transparent 25%, 
+                    transparent 75%, 
+                    var(--vibrant-purple) 75%);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+            animation: rotate 10s linear infinite, pulse 2s ease-in-out infinite alternate;
+            position: relative;
+            box-shadow: 0 0 30px var(--electric-blue);
+        }
+        
+        @media (min-width: 768px) {
+            .qr-hologram {
+                width: 200px;
+                height: 200px;
+            }
+        }
+        
+        .qr-hologram::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: 
+                linear-gradient(45deg, 
+                    var(--hot-pink) 25%, 
+                    transparent 25%, 
+                    transparent 75%, 
+                    var(--cyber-yellow) 75%),
+                linear-gradient(45deg, 
+                    var(--hot-pink) 25%, 
+                    transparent 25%, 
+                    transparent 75%, 
+                    var(--cyber-yellow) 75%);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+            z-index: -1;
+            opacity: 0.7;
+            animation: rotate 15s linear infinite reverse;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 30px var(--electric-blue); }
+            100% { transform: scale(1.05); box-shadow: 0 0 50px var(--vibrant-purple); }
+        }
+        
+        /* PRODUCTS SECTION */
+        .products {
+            padding: 80px 20px;
+            background-color: rgba(157, 0, 255, 0.05);
+            position: relative;
+        }
+        
+        .products::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><circle cx="50" cy="50" r="40" fill="none" stroke="%239D00FF" stroke-width="0.5"/></svg>'),
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><rect x="10" y="10" width="80" height="80" fill="none" stroke="%2300F5FF" stroke-width="0.5"/></svg>');
+            background-size: 100px 100px, 150px 150px;
+            background-position: 10% 20%, 90% 80%;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2rem;
+            color: var(--electric-blue);
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--electric-blue), var(--vibrant-purple));
+        }
+        
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .product-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 245, 255, 0.2);
+            padding: 30px;
+            border-radius: 10px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 245, 255, 0.1) 0%, transparent 100%);
+            z-index: -1;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 245, 255, 0.2);
+            border-color: var(--electric-blue);
+        }
+        
+        .product-card h3 {
+            color: var(--neon-green);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+        
+        .product-price {
+            color: var(--electric-blue);
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .product-meta {
+            display: flex;
+            justify-content: space-between;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+        
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--hot-pink);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        /* ABOUT SECTION */
+        .about {
+            padding: 80px 20px;
+            background-color: rgba(26, 26, 46, 0.7);
+            position: relative;
+        }
+        
+        .about::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 L0,100 Z" fill="none" stroke="%2300FF7F" stroke-width="0.5" stroke-dasharray="5 5"/></svg>');
+            opacity: 0.1;
+            pointer-events: none;
+        }
+        
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            line-height: 1.6;
+        }
+        
+        .about-content p {
+            margin-bottom: 20px;
+        }
+        
+        /* TESTIMONIALS */
+        .testimonials {
+            padding: 80px 20px;
+            background-color: rgba(255, 0, 170, 0.05);
+        }
+        
+        .testimonial-slider {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .slide {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+        
+        .slide.active {
+            display: block;
+            animation: fadeIn 1s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .hologram-avatar {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 30px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--electric-blue), var(--vibrant-purple));
+            position: relative;
+            box-shadow: 0 0 30px var(--electric-blue);
+            animation: float 3s ease-in-out infinite alternate;
+        }
+        
+        .hologram-avatar::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--hot-pink), var(--cyber-yellow));
+            z-index: -1;
+            opacity: 0.7;
+            animation: float 3s ease-in-out infinite alternate-reverse;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-20px); }
+        }
+        
+        blockquote {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        blockquote::before, blockquote::after {
+            content: '"';
+            font-size: 2rem;
+            color: var(--electric-blue);
+            opacity: 0.5;
+        }
+        
+        /* CONTACT SECTION */
+        .contact {
+            padding: 80px 20px;
+            background: linear-gradient(135deg, var(--dark-slate) 0%, rgba(26, 26, 46, 0.9) 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .contact::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M20,20 L80,20 L80,80 L20,80 Z" fill="none" stroke="%23FF00AA" stroke-width="0.5"/></svg>'),
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><circle cx="50" cy="50" r="30" fill="none" stroke="%2300FF7F" stroke-width="0.5"/></svg>');
+            background-size: 100px 100px, 150px 150px;
+            background-position: 10% 30%, 90% 70%;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .social-link {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(0, 245, 255, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s;
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+            border: 1px solid var(--electric-blue);
+        }
+        
+        .social-link:hover {
+            background: var(--electric-blue);
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 245, 255, 0.3);
+        }
+        
+        /* FOOTER */
+        footer {
+            padding: 30px 20px;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.3);
+            border-top: 1px solid rgba(0, 245, 255, 0.2);
+        }
+        
+        /* RESPONSIVE ADJUSTMENTS */
+        @media (max-width: 768px) {
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* navbar */
+        .navbar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 16px;
+            background: rgba(26,26,46,0.95);
+            box-shadow: 0 2px 20px 0 rgba(0,245,255,0.08);
+            border-bottom: 1.5px solid var(--electric-blue);
+            backdrop-filter: blur(6px);
+            animation: navbarFadeIn 1.2s cubic-bezier(.6,.2,.2,1);
+        }
+        @keyframes navbarFadeIn {
+            from { opacity: 0; transform: translateY(-40px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+        .navbar ul {
+            display: flex;
+            flex-direction:row; 
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            list-style: none;
+            padding: 18px 0 12px 0;
+            margin: 0;
+        }
+        .nav-link {
+            color: var(--electric-blue);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            position: relative;
+            transition: color 0.2s;
+            text-shadow: 0 0 8px var(--electric-blue);
+            padding: 6px 12px;
+            border-radius: 6px;
+            background: linear-gradient(90deg, transparent 60%, var(--vibrant-purple) 100%);
+            background-size: 200% 100%;
+            background-position: 100% 0;
+            transition: background-position 0.4s, color 0.2s;
+        }
+        .nav-link:hover, .nav-link:focus {
+            color: var(--neon-green);
+            background-position: 0 0;
+            text-shadow: 0 0 12px var(--neon-green);
+            box-shadow: 0 0 12px 0 var(--vibrant-purple);
+            animation: navGlitch 0.3s;
+        }
+
+        
+
+        @keyframes navGlitch {
+            0% { text-shadow: 2px 0 var(--hot-pink);}
+            25% { text-shadow: -2px 0 var(--neon-green);}
+            50% { text-shadow: 2px 2px var(--cyber-yellow);}
+            75% { text-shadow: -2px -2px var(--vibrant-purple);}
+            100% { text-shadow: 0 0 12px var(--neon-green);}
+        }
+        /* Hide hamburger by default */
+        .hamburger {
+            display: none;
+            font-size: 2rem;
+            color: var(--electric-blue);
+            cursor: pointer;
+            user-select: none;
+            padding: 18px 20px;
+        }
+
+    /* For small screens */
+    @media (max-width: 700px) {
+        .navbar ul {
+            flex-direction: column; /* vertical dropdown */
+            display: none; /* hidden by default */
+            width: 100%;
+            background: rgba(26,26,46,0.95);
+            position: absolute;
+            top: 60px; /* below navbar */
+            left: 0;
+            border-bottom-left-radius: 6px;
+            border-bottom-right-radius: 6px;
+            box-shadow: 0 2px 20px 0 rgba(0,245,255,0.2);
+            padding: 0;
+            gap: 0;
+            z-index: 99;
+        }
+        .navbar ul.active {
+            display: flex;
+        }
+        .navbar ul li {
+            width: 100%;
+            text-align: center;
+            border-top: 1px solid var(--electric-blue);
+            margin: 0;
+        }
+        .nav-link {
+            padding: 12px 0;
+            display: block;
+            font-size: 1.2rem;
+            background: transparent;
+            box-shadow: none;
+            text-shadow: none;
+            border-radius: 0;
+            background-position: initial;
+            transition: none;
+        }
+        .nav-link:hover, .nav-link:focus {
+            color: var(--neon-green);
+            background: rgba(0,255,128,0.1);
+            text-shadow: none;
+            box-shadow: none;
+            animation: none;
+        }
+        .hamburger {
+            display: block;
+        }
+    }
+
+    </style>
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="hamburger" tabindex="0">&#9776;</div>
+        <ul>
+            <li><a href="#main-content" class="nav-link">Home</a></li>
+            <li><a href="#products-section" class="nav-link">Modules</a></li>
+            <li><a href="#about-section" class="nav-link">About</a></li>
+            <li><a href="#testimonials-section" class="nav-link">Testimonials</a></li>
+            <li><a href="#contact-section" class="nav-link">Contact</a></li>
+        </ul>
+    </nav>
+    <script>
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.navbar ul');
+
+        hamburger.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        });
+        hamburger.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                navLinks.classList.toggle('active');
+            }
+        });
+        // Close the menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!navLinks.contains(e.target) && !hamburger.contains(e.target)) {
+                navLinks.classList.remove('active');
+            }
+        });
+        // Close the menu when pressing Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                navLinks.classList.remove('active');
+            }
+        });
+        // Close the menu when clicking a link
+        navLinks.addEventListener('click', () => {
+            navLinks.classList.remove('active');
+        });
+        // Close the menu when pressing Enter or Space on a link
+        navLinks.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                navLinks.classList.remove('active');
+            }
+        });
+
+        // Smooth scroll for nav links
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href.startsWith('#')) {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        window.scrollTo({
+                            top: target.offsetTop - 60,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+    </script>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        // Assign section IDs
+        const sectionMap = {
+            'products': 'products-section',
+            'about': 'about-section',
+            'testimonials': 'testimonials-section',
+            'contact': 'contact-section'
+        };
+
+        Object.entries(sectionMap).forEach(([className, idName]) => {
+            const el = document.querySelector(`.${className}`);
+            if (el) {
+                el.id = idName;
+            }
+        });
+
+        // Smooth scroll for nav links
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href.startsWith('#')) {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        window.scrollTo({
+                            top: target.offsetTop - 60,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+    });
+</script>
+
+    
+    <!-- MAIN WEBSITE CONTENT -->
+    <div class="website-content" id="main-content">
+        <!-- HERO SECTION -->
+        <section class="hero">
+            <h1 class="glitch" data-text="QR RESUME">QR RESUME</h1>
+            <p class="subtitle">Revolutionary study QR codes for IT students</p>
+            <div class="qr-hologram"></div>
+        </section>
+        
+        <!-- PRODUCTS SECTION -->
+        <section class="products">
+            <h2 class="section-title">Our Study Modules</h2>
+            <div class="product-grid">
+
+                <div class="product-card">
+                    <h3> Full Package </h3>
+                    <div class="product-price">90.50 Mad</div>
+                    <div class="product-meta">
+                        <span>All modules</span>
+                        <span>Available</span>
+                    </div>
+                </div>
+
+
+                <div class="product-card">
+                    <h3>Implementation of a network infrastructure</h3>
+                    <div class="product-price">™</div>
+                    <div class="product-meta">
+                        <span>3 modules</span>
+                        <span>Available</span>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <h3>Administration of a Windows environment</h3>
+                    <div class="product-price">™</div>
+                    <div class="product-meta">
+                        <span>3 modules</span>
+                        <span>Available</span>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-badge">New</div>
+                    <h3>Managing a Cloud environment</h3>
+                    <div class="product-price">™</div>
+                    <div class="product-meta">
+                        <span>2 modules</span>
+                        <span>New</span>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-badge">New</div>
+                    <h3>Challenges of SDN technology</h3>
+                    <div class="product-price">™</div>
+                    <div class="product-meta">
+                        <span>2 modules</span>
+                        <span>New</span>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <h3>Administration of a Linux environment</h3>
+                    <div class="product-price">™</div>
+                    <div class="product-meta">
+                        <span>3 modules</span>
+                        <span>Available</span>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <h3>Digital infrastructure security</h3>
+                    <div class="product-price">™</div>
+                    <div class="product-meta">
+                        <span>3 modules</span>
+                        <span>Available</span>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <h3>Digital infrastructure project management</h3>
+                    <div class="product-price">™</div>
+                    <div class="product-meta">
+                        <span>3 modules</span>
+                        <span>Available</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ABOUT SECTION -->
+        <section class="about">
+            <h2 class="section-title">About QR Resume</h2>
+            <div class="about-content">
+                <p>We're revolutionizing how IT students access and share study materials through innovative QR code technology.</p>
+                <p>Our QR codes contain comprehensive modules, resumes, and explanations - everything you need for your studies in one scannable package.</p>
+                <p>Founded by students for students, we're committed to making education more accessible and interactive.</p>
+            </div>
+        </section>
+        
+        <!-- TESTIMONIALS -->
+        <section class="testimonials">
+            <h2 class="section-title">What Students Say</h2>
+            <div class="testimonial-slider">
+                <div class="slide active">
+                    <div class="hologram-avatar"></div>
+                    <blockquote>These QR codes saved me so much time during exams. Having all the materials in one place is a game-changer!</blockquote>
+                    <p>- IT Student, ENSA</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- CONTACT SECTION -->
+        <section class="contact">
+            <h2 class="section-title">Get In Touch</h2>
+            <p>Have questions? Want to place an order? Contact us through our social media:</p>
+            
+            <div class="social-links">
+                <a href="https://www.instagram.com/qr_resume/?igsh=NHp3NG9vN2N3ZnE3" class="social-link">🌐</a>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>© 2023 QR Resume. All rights reserved.</p>
+        <p>Revolutionizing education through technology.</p>
+    </footer>
+
+    <script>
+        // MAGICAL BOOK REVEAL SEQUENCE
+        const bookContainer = document.getElementById('book-container');
+        const book = document.getElementById('book');
+        const coverFront = document.getElementById('cover-front');
+        const bookPages = document.getElementById('book-pages');
+        const mainContent = document.getElementById('main-content');
+        
+        // Create particles
+        function createParticles(x, y, color) {
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                particle.style.background = color;
+                particle.style.width = `${Math.random() * 10 + 5}px`;
+                particle.style.height = particle.style.width;
+                particle.style.left = `${x}px`;
+                particle.style.top = `${y}px`;
+                particle.style.setProperty('--tx', `${(Math.random() - 0.5) * 200}px`);
+                particle.style.setProperty('--ty', `${(Math.random() - 0.5) * 200}px`);
+                particle.style.animation = `particleFloat ${Math.random() * 2 + 1}s ease-out forwards`;
+                bookContainer.appendChild(particle);
+                
+                // Remove particle after animation
+                setTimeout(() => {
+                    particle.remove();
+                }, 1000);
+            }
+        }
+        
+        // Start animation after page loads
+        window.addEventListener('load', () => {
+            // Initial book appearance with particles
+            setTimeout(() => {
+                // Create initial particles
+                const rect = book.getBoundingClientRect();
+                createParticles(
+                    rect.left + rect.width/2, 
+                    rect.top + rect.height/2, 
+                    'var(--electric-blue)'
+                );
+                
+                // Scale up book
+                book.style.transform = 'rotateY(0deg) scale(1)';
+                book.style.animation = 'none';
+                
+                // Open book with style
+                setTimeout(() => {
+                    coverFront.style.transform = 'rotateY(-170deg) translateZ(20px)';
+                    
+                    // Show pages with shine effect
+                    setTimeout(() => {
+                        bookPages.style.opacity = '1';
+                        
+                        // Create more particles
+                        createParticles(
+                            rect.left + rect.width/4, 
+                            rect.top + rect.height/2, 
+                            'var(--neon-green)'
+                        );
+                        
+                        // Book grows with magical effect
+                        setTimeout(() => {
+                            book.style.transition = 'all 3s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+                            book.style.transform = 'rotateY(-15deg) scale(15)';
+                            
+                            // Final reveal
+                            setTimeout(() => {
+                                bookContainer.style.opacity = '0';
+                                bookContainer.style.background = 'var(--dark-slate)';
+                                mainContent.style.display = 'block';
+                                
+                                setTimeout(() => {
+                                    mainContent.style.opacity = '1';
+                                    bookContainer.style.display = 'none';
+                                }, 500);
+                            }, 3000);
+                        }, 1000);
+                    }, 500);
+                }, 1000);
+            }, 500);
+        });
+        
+        // TESTIMONIAL SLIDER
+        const slides = document.querySelectorAll('.slide');
+        let currentSlide = 0;
+        
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + slides.length) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+        
+        // Auto-advance slides every 5 seconds
+        setInterval(() => {
+            showSlide(currentSlide + 1);
+        }, 5000);
+        
+        // TILT EFFECT FOR PRODUCT CARDS
+        const productCards = document.querySelectorAll('.product-card');
+        
+        productCards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const angleX = (y - centerY) / 20;
+                const angleY = (centerX - x) / 20;
+                
+                card.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg) translateZ(20px)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
+            });
+        });
+    </script>
+</body>
+</html>
